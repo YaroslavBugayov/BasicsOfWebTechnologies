@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+header {
+    height: 10vh;
+}
+
+main {
+    height: 80vh;
+}
+
+main img {
+    height: 100%;
+    object-fit: cover;
+}
+
+footer {
+    height: 10vh;
+}
+
+.element {
+    width: 33.3%;
+}
+
+#left {
+    float: left;
+}
+
+#right {
+    float: right;
+}
