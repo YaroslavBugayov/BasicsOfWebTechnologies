@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    margin: 100px auto;
+    width: 400px;
+}
+
+#palette {
+    width: 100%;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: 400px;
+    height: 400px;
+}
+
+.cell {
+    border: solid black 1px;
+    padding-top: 30%;
+    text-align: center;
+}
