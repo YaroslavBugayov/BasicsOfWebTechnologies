@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    width: 900px;
+    margin: 15px auto;
+}
+
+.input_container {
+    text-align: center;
+}
+
+.input_container input {
+    padding: 5px;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 15px;
+    gap: 10px;
+}
+
+.profile {
+    border: black solid 1px;
+    border-radius: 5px;
+    padding: 10px;
+}
