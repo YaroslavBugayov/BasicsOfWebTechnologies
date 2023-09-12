@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#chat {
+    overflow-y: scroll;
+    height: 90vh;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px;
+    align-items: center;
+}
+
+#container .message {
+    border: black solid 1px;
+    border-radius: 3px;
+    padding: 10px;
+    list-style: none;
+    width: 100%;
+}
+
+#container .log {
+    border: black solid 1px;
+    border-radius: 10px;
+    padding: 5px;
+    list-style: none;
+    width: fit-content;
+}
+
+#form {
+    display: flex;
+    padding: 10px;
+    height: 10vh;
+    gap: 10px;
+}
+
+#form input {
+    padding: 5px;
+    height: 100%;
+}
+
+#form #message_field {
+    flex: 4;
+}
+
+#form #submit {
+    flex: 1;
+}
+
+.name_form {
+    display: block;
+}
