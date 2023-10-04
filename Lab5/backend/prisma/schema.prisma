@@ -11,9 +11,10 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @db.VarChar(50)
-  Profile Profile?
+  id       Int      @id @default(autoincrement())
+  email    String   @unique @db.VarChar(50)
+  password String   @db.VarChar(200)
+  Profile  Profile?
 
   @@map("User")
 }
@@ -21,9 +22,9 @@ model User {
 model Profile {
   id        Int    @id @default(autoincrement())
   name      String @db.VarChar(100)
-  group     String @db.VarChar(5)
-  idCard    String @db.VarChar(10)
-  birthDate String @db.VarChar(10)
+  group     String @db.VarChar(20)
+  idCard    String @db.VarChar(20)
+  birthDate String @db.VarChar(20)
   userId    Int    @unique
   user      User   @relation(fields: [userId], references: [id])
 
