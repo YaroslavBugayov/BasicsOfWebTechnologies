@@ -1,4 +1,3 @@
-import {RegistrationBody} from "../bodies/registration.body";
 import {Profile, User} from "@prisma/client";
 
 export default class UserDto {

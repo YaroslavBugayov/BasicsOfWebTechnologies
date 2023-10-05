@@ -15,6 +15,7 @@ model User {
   email    String   @unique @db.VarChar(50)
   password String   @db.VarChar(200)
   Profile  Profile?
+  Token    Token?
 
   @@map("User")
 }
@@ -29,4 +30,13 @@ model Profile {
   user      User   @relation(fields: [userId], references: [id])
 
   @@map("Profile")
+}
+
+model Token {
+  id           Int    @id @default(autoincrement())
+  refreshToken String @unique @db.VarChar(500)
+  userId       Int    @unique
+  user         User   @relation(fields: [userId], references: [id])
+
+  @@map("Token")
 }

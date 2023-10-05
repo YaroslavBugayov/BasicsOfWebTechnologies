@@ -1,24 +1,42 @@
-import {FastifyReply, FastifyRequest} from 'fastify'
-import {RegistrationBody} from "../bodies/registration.body";
-import {LoginBody} from "../bodies/login.body";
 import {userService} from "../services/user.service";
+import {NextFunction, Request, Response} from "express";
+import {LoginBody} from "../bodies/login.body";
+import {RegistrationBody} from "../bodies/registration.body";
+import UserDto from "../dtos/user.dto";
 
 export const userController = {
-    async registration(request: FastifyRequest<{ Body: RegistrationBody }>, reply: FastifyReply) : Promise<FastifyReply | undefined> {
-        const user = await userService.registration(request.body);
-        reply.send();
+    async registration(req: Request, res: Response, next: NextFunction) : Promise<Response | undefined> {
+        try {
+            const { user, tokens } = await userService.registration(req.body as RegistrationBody);
+            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 360000, httpOnly: true })
+            return res.status(201).json({ 'user': user, 'tokens': tokens })
+        } catch (error) {
+            next(error)
+        }
     },
 
-    async login(request: FastifyRequest<{ Body: LoginBody }>, reply: FastifyReply) : Promise<FastifyReply | undefined> {
-        const { email, password } = request.body;
-        reply.send({ hello: 'hello' });
+    async login(req: Request, res: Response, next: NextFunction) : Promise<Response | undefined> {
+        try {
+            const { email, password } = req.body as LoginBody;
+            return res.status(201)
+        } catch (error) {
+            next(error)
+        }
     },
 
-    async logout(request: FastifyRequest, reply: FastifyReply) : Promise<FastifyReply | undefined> {
-        reply.send({ hello: 'hello' });
+    async logout(req: Request, res: Response, next: NextFunction) : Promise<Response | undefined> {
+        try {
+            return res.status(201)
+        } catch (error) {
+            next(error)
+        }
     },
 
-    async refresh(request: FastifyRequest, reply: FastifyReply) : Promise<FastifyReply | undefined> {
-        reply.send({ hello: 'hello' });
+    async refresh(req: Request, res: Response, next: NextFunction) : Promise<Response | undefined> {
+        try {
+            return res.status(201)
+        } catch (error) {
+            next(error)
+        }
     },
 }

@@ -1,10 +1,11 @@
-import {FastifyInstance} from 'fastify'
 import {userController} from "../controllers/user.controller";
-import {userSchemas} from "../schemas/user.schemas";
+import express from "express";
 
-export default async (fastify: FastifyInstance) => {
-    fastify.post('/registration', userSchemas.registrationScheme, userController.registration);
-    fastify.post('/login', userSchemas.loginScheme, userController.login);
-    fastify.post('/logout', userController.logout);
-    fastify.get('/refresh', userController.refresh);
-}
+const router = express.Router();
+
+router.post('/registration', userController.registration);
+router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.get('/refresh', userController.refresh);
+
+export default router;
