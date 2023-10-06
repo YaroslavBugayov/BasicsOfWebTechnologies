@@ -1,11 +1,13 @@
 import {NextFunction, Request, Response} from "express";
 import {profileService} from "../services/profile.service";
 import {AuthenticatedRequest} from "../interfaces/authenticated-request.interface";
+import {ProfileModel} from "../models/profile.model";
 
 export const profileController = {
-    async change(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    async change(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            return res.status(201).json()
+            const profile = await profileService.change(req.body as ProfileModel, req.userId as number);
+            return res.status(201).json({ 'profile': profile });
         } catch (error) {
             return next(error);
         }
@@ -13,7 +15,7 @@ export const profileController = {
 
     async get(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            const profile = await profileService.get(req.userId as number)
+            const profile = await profileService.get(req.userId as number);
             return res.status(200).json({ 'profile': profile });
         } catch (error) {
             return next(error);

@@ -88,15 +88,7 @@ export const userService = {
             throw ApiError.UnauthorizedError();
         }
 
-        const user = await prisma.user.findUnique({
-            where: {
-                id: userId
-            }
-        });
-
-        if (!user) {
-            throw ApiError.BadRequest("User not found");
-        }
+        const user = await userService.find(userId);
 
         const profile: Profile | null = await prisma.profile.findUnique({
             where: {
@@ -109,6 +101,14 @@ export const userService = {
         }
 
         return await saveToken(user, profile);
+    },
+
+    async find(userId: number): Promise<User> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            throw ApiError.BadRequest("User not found");
+        }
+        return user;
     }
 }
 
