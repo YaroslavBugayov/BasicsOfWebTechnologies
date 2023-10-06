@@ -2,14 +2,14 @@ import {userService} from "../services/user.service";
 import {NextFunction, Request, Response} from "express";
 import {LoginBody} from "../bodies/login.body";
 import {RegistrationBody} from "../bodies/registration.body";
-import UserDto from "../dtos/user.dto";
 
 export const userController = {
     async registration(req: Request, res: Response, next: NextFunction) : Promise<Response | void> {
         try {
             const { user, tokens } = await userService.registration(req.body as RegistrationBody);
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 360000, httpOnly: true });
-            return res.status(201).json({ 'user': user, 'tokens': tokens });
+            res.header('Authorization', tokens.accessToken)
+            return res.status(201).json({ 'user': user });
         } catch (error) {
             return next(error);
         }
@@ -19,7 +19,8 @@ export const userController = {
         try {
             const { user, tokens } = await userService.login(req.body as LoginBody);
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 360000, httpOnly: true });
-            return res.status(201).json({ 'user': user, 'tokens': tokens });
+            res.header('Authorization', tokens.accessToken)
+            return res.status(200).json({ 'user': user });
         } catch (error) {
             return next(error);
         }
@@ -40,8 +41,9 @@ export const userController = {
         try {
             const { refreshToken } = req.cookies;
             const { user, tokens } = await userService.refresh(refreshToken);
-            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 5, httpOnly: true });
-            return res.status(201).json({ 'user': user, 'tokens': tokens });
+            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 360000, httpOnly: true });
+            res.header('Authorization', tokens.accessToken)
+            return res.status(200).json({ 'user': user });
         } catch (error) {
             return next(error);
         }
