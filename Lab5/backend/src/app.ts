@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use('/user', userRouter)
+app.use('/user', userRouter);
 
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 app.listen(port, async () => {
     console.log(`Server run on port ${port}`);
