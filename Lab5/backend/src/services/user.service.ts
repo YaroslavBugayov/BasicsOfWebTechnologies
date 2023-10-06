@@ -4,7 +4,7 @@ import {PrismaClient, Profile, Token, User} from "@prisma/client";
 import UserDto from "../dtos/user.dto";
 import {ApiError} from "../errors/api.error";
 import TokensDto from "../dtos/tokens.dto";
-import {tokenService} from "./tokenService";
+import {tokenService} from "./token.service";
 import {LoginBody} from "../bodies/login.body";
 
 const prisma = new PrismaClient();

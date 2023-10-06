@@ -46,38 +46,28 @@ export const tokenService = {
     },
 
     async removeToken(refreshToken: string) : Promise<Token> {
-        const tokenData = await prisma.token.delete({
+        return prisma.token.delete({
             where: {
                 refreshToken: refreshToken
             }
-        })
-        return tokenData;
+        });
     },
 
     async findToken(refreshToken: string) : Promise<Token | null> {
-        const tokenData = await prisma.token.findUnique({
+        return prisma.token.findUnique({
             where: {
                 refreshToken: refreshToken
             }
-        })
-        return tokenData;
+        });
     },
 
-    validateAccessToken(token: string) : number | null {
-        try {
-            const user = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as JwtPayloadModel;
-            return user.userId;
-        } catch (error) {
-            return null;
-        }
+    validateAccessToken(token: string) : number {
+        const user = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string) as JwtPayloadModel;
+        return user.userId;
     },
 
-    validateRefreshToken(token: string) : number | null {
-        try {
-            const user = jwt.verify(token, process.env.JWT_REFRESH_SECRET as string) as JwtPayloadModel;
-            return user.userId;
-        } catch (error) {
-            return null;
-        }
+    validateRefreshToken(token: string) : number {
+        const user = jwt.verify(token, process.env.JWT_REFRESH_SECRET as string) as JwtPayloadModel;
+        return user.userId;
     }
 }

@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import userRouter from "./routes/user.router";
 import errorMiddleware from "./middlewares/error.middleware";
+import profileRouter from "./routes/profile.router";
+import authMiddleware from "./middlewares/auth.middleware";
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/user', userRouter);
+app.use('/profile', authMiddleware, profileRouter)
 
 app.use(errorMiddleware);
 
