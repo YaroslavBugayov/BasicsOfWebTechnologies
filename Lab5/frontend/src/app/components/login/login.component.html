@@ -1,36 +1,54 @@
 <div class="container mx-auto">
   <div class="flex justify-center px-6 py-12">
     <div class="w-full xl:w-1/2 lg:w-11/12 flex">
-      <div class="w-full bg-white p-5 rounded-lg lg:rounded-l-0">
+      <form
+        class="w-full bg-white p-5 rounded-lg lg:rounded-l-0"
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+      >
         <h3 class="pt-4 text-2xl text-center">Login</h3>
         <div class="bg-white py-2 px-4 rounded-lg">
           <div class="relative bg-inherit">
-            <input type="email" id="email" name="username" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/><label for="email" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Email</label>
+            <input formControlName="email" type="email" id="email" name="email" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+            <label for="email" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Email</label>
           </div>
+        </div>
+        <div
+          class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg"
+          *ngIf="form.controls['email'].invalid && form.controls['email'].touched"
+        >
+          Invalid email
         </div>
         <div class="bg-white py-2 px-4 rounded-lg">
           <div class="relative bg-inherit">
-            <input type="password" id="password" name="username" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/><label for="password" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Password</label>
+            <input formControlName="password" type="password" id="password" name="password" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+            <label for="password" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Password</label>
           </div>
+        </div>
+        <div
+          class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg"
+          *ngIf="form.controls['password'].invalid && form.controls['password'].touched"
+        >
+          Invalid password. Minimum 8 symbols without spaces
         </div>
         <div class="mb-6 text-center py-2 px-4">
           <button
             class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-            type="button"
+            [disabled]="form.invalid"
           >
             Log in
           </button>
         </div>
         <hr class="mb-6 border-t" />
         <div class="text-center">
-          <a
+          <button
             class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-            href="./index.html"
+            (click)="signUp()"
           >
             Don't have an account? Sign up!
-          </a>
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

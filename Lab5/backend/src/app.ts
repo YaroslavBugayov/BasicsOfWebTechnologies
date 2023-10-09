@@ -14,7 +14,11 @@ const port: number = Number(process.env.PORT ?? 3000);
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+
+}));
 
 app.use('/user', userRouter);
 app.use('/profile', authMiddleware, profileRouter)
