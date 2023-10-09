@@ -1,6 +1,6 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {UserModel} from "../models/user.model";
 import AuthModel from "../models/auth.model";
 
@@ -8,11 +8,16 @@ import AuthModel from "../models/auth.model";
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   login(user: AuthModel) {
-    console.log(user)
-    return this.http.post('http://localhost:3000/user/login', user);
+    return this.http.post('http://localhost:3000/user/login', user, { withCredentials: true, observe: 'response' })
+      .pipe(
+        tap({
+          next: (data: any) => {
+            localStorage.setItem('accessToken', data.headers.get('Authorization'))
+          }
+        })
+      )
   }
 }

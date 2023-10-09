@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import AuthModel from "../../models/auth.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import AuthModel from "../../models/auth.model";
 export class LoginComponent {
   form: FormGroup
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.pattern("^(?=\\S{8,}$).*")])
@@ -23,11 +24,13 @@ export class LoginComponent {
 
   submit() {
     this.userService.login( new AuthModel(this.form.value.email, this.form.value.password) )
-      .subscribe({ next: (data: any) => console.log(data)})
+      .subscribe({
+        next: (data: any) => {
+          this.router.navigate(['/profile'])
+        },
+        error: (error: any) => {
+          alert(error.error.message)
+        }
+      })
   }
-
-  signUp() {
-
-  }
-
 }
