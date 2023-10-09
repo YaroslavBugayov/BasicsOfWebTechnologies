@@ -5,7 +5,9 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "ts-node-dev src/app.ts"
+    "dev": "ts-node-dev src/app.ts",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "author": "bugayov",
   "license": "ISC",
