@@ -11,6 +11,7 @@ import { UserService } from "./services/user.service";
 import { HttpClientModule } from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {ProfileService} from "./services/profile.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRotes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const appRotes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRotes)
   ],
   providers: [UserService, ProfileService],

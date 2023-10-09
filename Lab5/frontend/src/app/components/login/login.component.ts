@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
-import AuthModel from "../../models/auth.model";
 import {Router} from "@angular/router";
+import {AuthModel} from "../../models/auth.model";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,11 @@ export class LoginComponent {
   }
 
   submit() {
-    this.userService.login( new AuthModel(this.form.value.email, this.form.value.password) )
+    const user: AuthModel = {
+      email: this.form.value.email,
+      password: this.form.value.password
+    }
+    this.userService.login(user)
       .subscribe({
         next: (data: any) => {
           this.router.navigate(['/profile'])
