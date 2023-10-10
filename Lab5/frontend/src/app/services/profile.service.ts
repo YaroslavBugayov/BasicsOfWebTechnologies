@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UserModel} from "../models/user.model";
+import {environment} from "../environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,6 @@ export class ProfileService {
      const headers = new HttpHeaders({
        'Authorization': `Bearer: ${localStorage.getItem('accessToken')}`
      })
-      return this.http.get<UserModel>('http://localhost:3000/profile', { withCredentials: true, headers: headers } )
+      return this.http.get<UserModel>(environment.origin + '/profile', { withCredentials: true, headers: headers } )
    }
 }

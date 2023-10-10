@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {AuthModel} from "../../models/auth.model";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,20 @@ import {AuthModel} from "../../models/auth.model";
         input.ng-touched.ng-invalid {border:solid red 2px;}
         input.ng-touched.ng-valid {border:solid green 2px;}
     `],
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        height: '40px',
+      })),
+      state('closed', style({
+        height: '0px',
+      })),
+      transition('* => *',
+        animate('0.5s ease')
+      ),
+    ])
+  ]
 })
 export class LoginComponent {
   form: FormGroup
