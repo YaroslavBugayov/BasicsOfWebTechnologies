@@ -18,11 +18,11 @@ export class ProfileService {
       return this.http.get<UserModel>(environment.origin + `/profile/${id ?? ''}` , { withCredentials: true, headers: headers } )
    }
 
-   change(user: ChangeProfileModel): Observable<UserModel> {
+   change(user: ChangeProfileModel, id: string | null): Observable<UserModel> {
      const headers = new HttpHeaders({
        'Authorization': `Bearer: ${localStorage.getItem('accessToken')}`
      })
-     return this.http.put<UserModel>(environment.origin + '/profile/change', user, { withCredentials: true, observe: 'response', headers: headers })
+     return this.http.put<UserModel>(environment.origin + `/profile/change/${id ?? ''}`, user, { withCredentials: true, observe: 'response', headers: headers })
        .pipe(
          tap({
            next: (data: any) => {

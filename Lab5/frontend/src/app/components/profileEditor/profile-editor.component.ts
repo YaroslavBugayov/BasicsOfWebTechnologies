@@ -5,6 +5,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {RegistrationModel} from "../../models/registration.model";
 import {UserModel} from "../../models/user.model";
 import {ChangeProfileModel} from "../../models/change-profile.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile-editor',
@@ -29,8 +30,9 @@ import {ChangeProfileModel} from "../../models/change-profile.model";
 })
 export class ProfileEditorComponent {
   form: FormGroup
+  id: string | null
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private route: ActivatedRoute) {
     this.form = new FormGroup({
       name: new FormControl(null, [Validators.pattern('^[A-Z][a-z]+\\s[A-Z][a-z]+$')]),
       group: new FormControl(null, [Validators.pattern('^[A-Z][A-Z]-[0-9][0-9]$')]),
@@ -39,18 +41,20 @@ export class ProfileEditorComponent {
       email: new FormControl(null, [Validators.email]),
       password: new FormControl(null, [Validators.pattern('^(?=\\S{8,}$).*')])
     })
+    this.id = this.route.snapshot.paramMap.get('id')
   }
 
   submit() {
     const user: ChangeProfileModel = {
       name: this.form.value.name ?? undefined,
       group: this.form.value.group ?? undefined,
-      idCard: this.form.value.name ?? undefined,
+      idCard: this.form.value.idCard ?? undefined,
       birthDate: this.form.value.birthDate ?? undefined,
       email: this.form.value.email ?? undefined,
       password: this.form.value.password ?? undefined,
     }
-    this.profileService.change(user)
+    console.log(user)
+    this.profileService.change(user, this.id)
       .subscribe({
         next: (data: any) => {
           window.location.reload()
