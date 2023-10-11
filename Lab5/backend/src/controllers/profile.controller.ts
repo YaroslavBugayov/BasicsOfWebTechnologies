@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from "express";
+import {NextFunction, Response} from "express";
 import {profileService} from "../services/profile.service";
 import {AuthenticatedRequest} from "../interfaces/authenticated-request.interface";
 import {ProfileModel} from "../models/profile.model";

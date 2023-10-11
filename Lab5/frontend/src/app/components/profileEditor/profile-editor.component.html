@@ -1,0 +1,56 @@
+<form
+  class="text-center mt-2"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <div class="p-4 border-t mx-8 mt-2">
+    <div class="bg-white py-2 px-4 rounded-lg">
+      <div class="relative bg-inherit">
+        <input formControlName="name" type="text" id="name" name="name" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+        <label for="name" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Name</label>
+      </div>
+    </div>
+    <div class="h-0" [@openClose]="form.controls['name'].invalid && form.controls['name'].touched ? 'open' : 'closed'">
+      <div class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg">
+        Invalid name
+      </div>
+    </div>
+    <div class="bg-white py-2 px-4 rounded-lg">
+      <div class="relative bg-inherit">
+        <input formControlName="group" type="text" id="group" name="group" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+        <label for="group" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Group</label>
+      </div>
+    </div>
+    <div class="h-0" [@openClose]="form.controls['group'].invalid && form.controls['group'].touched ? 'open' : 'closed'">
+      <div class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg">
+        Invalid group
+      </div>
+    </div>
+    <div class="bg-white py-2 px-4 rounded-lg">
+      <div class="relative bg-inherit">
+        <input formControlName="idCard" type="text" id="idCard" name="idCard" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+        <label for="idCard" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Id-card</label>
+      </div>
+    </div>
+    <div class="h-0" [@openClose]="form.controls['idCard'].invalid && form.controls['idCard'].touched ? 'open' : 'closed'">
+      <div class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg">
+        Invalid id-cart
+      </div>
+    </div>
+    <div class="bg-white py-2 px-4 rounded-lg">
+      <div class="relative bg-inherit">
+        <input formControlName="birthDate" type="date" id="birthDate" name="birthDate" class="peer bg-transparent h-10 w-full rounded-lg text-black placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600" placeholder="Type inside me"/>
+        <label for="birthDate" class="absolute cursor-text left-0 -top-3 text-sm text-gray-500 bg-inherit mx-1 px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-sky-600 peer-focus:text-sm transition-all">Birth date</label>
+      </div>
+    </div>
+    <div class="h-0" [@openClose]="form.controls['birthDate'].invalid && form.controls['birthDate'].touched ? 'open' : 'closed'">
+      <div class="mb-2 mx-4 py-1.5 px-5 bg-red-200 rounded-lg">
+        Field is empty
+      </div>
+    </div>
+
+    <div class="bg-white">
+      <button [disabled]="form.invalid" class="w-4/5 block mx-auto rounded-full bg-gray-900 hover:bg-black font-semibold text-white px-6 py-2">Save</button>
+    </div>
+  </div>
+</form>
