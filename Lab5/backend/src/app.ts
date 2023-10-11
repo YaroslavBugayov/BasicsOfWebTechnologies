@@ -1,10 +1,12 @@
-import express from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'
 import userRouter from "./routes/user.router";
 import errorMiddleware from "./middlewares/error.middleware";
 import profileRouter from "./routes/profile.router";
 import authMiddleware from "./middlewares/auth.middleware";
+import bodyParser from "body-parser";
+import {ValidationError} from "express-validation";
 
 dotenv.config();
 
@@ -25,6 +27,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use(bodyParser.json())
 
 app.use('/user', userRouter);
 app.use('/profile', authMiddleware, profileRouter)
