@@ -12,6 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {ProfileService} from "./services/profile.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {JwtService} from "./services/jwt.service";
 
 const appRotes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -37,7 +38,7 @@ const appRotes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(appRotes)
   ],
-  providers: [UserService, ProfileService],
+  providers: [UserService, ProfileService, JwtService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
