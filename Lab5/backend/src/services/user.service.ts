@@ -1,6 +1,6 @@
 import {compareSync, hashSync} from "bcrypt";
 import {RegistrationBody} from "../bodies/registration.body";
-import {PrismaClient, Profile, Token, User} from "@prisma/client";
+import {PrismaClient, Profile, Role, Token, User} from "@prisma/client";
 import UserDto from "../dtos/user.dto";
 import {ApiError} from "../errors/api.error";
 import TokensDto from "../dtos/tokens.dto";
@@ -21,7 +21,7 @@ export const userService = {
             throw ApiError.BadRequest('User already exists');
         }
 
-        const hashedPassword = hashSync(userBody.password, 10);
+        const hashedPassword = await this.hashPassword(userBody.password);
 
         const user: User = await prisma.user.create({
             data: {
@@ -109,7 +109,20 @@ export const userService = {
             throw ApiError.BadRequest("User not found");
         }
         return user;
-    }
+    },
+
+    async checkRole(userId: number): Promise<Role> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            throw ApiError.BadRequest("User not found");
+        }
+        return user.role;
+    },
+
+    async hashPassword(password: string): Promise<string> {
+        return hashSync(password, 10);
+    },
+
 }
 
 const saveToken = async (user: User, profile: Profile) : Promise<{ user: UserDto, tokens: TokensDto }> => {

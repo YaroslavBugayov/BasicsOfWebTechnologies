@@ -14,6 +14,7 @@ model User {
   id       Int      @id @default(autoincrement())
   email    String   @unique @db.VarChar(50)
   password String   @db.VarChar(200)
+  role     Role     @default(USER)
   Profile  Profile?
   Token    Token?
 
@@ -39,4 +40,12 @@ model Token {
   user         User   @relation(fields: [userId], references: [id])
 
   @@map("Token")
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+
+  @@map("Role")
 }

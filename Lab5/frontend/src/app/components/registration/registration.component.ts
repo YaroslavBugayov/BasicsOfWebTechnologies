@@ -44,7 +44,7 @@ export class RegistrationComponent {
     const user: RegistrationModel = {
       name: this.form.value.name,
       group: this.form.value.group,
-      idCard: this.form.value.name,
+      idCard: this.form.value.idCard,
       birthDate: this.form.value.birthDate,
       email: this.form.value.email,
       password: this.form.value.password,
