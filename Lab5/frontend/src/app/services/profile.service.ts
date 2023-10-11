@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {UserModel} from "../models/user.model";
 import {environment} from "../environment";
+import {ChangeProfileModel} from "../models/change-profile.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,17 @@ export class ProfileService {
       return this.http.get<UserModel>(environment.origin + '/profile', { withCredentials: true, headers: headers } )
    }
 
-
+   change(user: ChangeProfileModel): Observable<UserModel> {
+     const headers = new HttpHeaders({
+       'Authorization': `Bearer: ${localStorage.getItem('accessToken')}`
+     })
+     return this.http.put<UserModel>(environment.origin + '/profile/change', user, { withCredentials: true, observe: 'response', headers: headers })
+       .pipe(
+         tap({
+           next: (data: any) => {
+             window.location.reload()
+           }
+         })
+       )
+   }
 }

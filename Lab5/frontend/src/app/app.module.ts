@@ -13,6 +13,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {ProfileService} from "./services/profile.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {JwtService} from "./services/jwt.service";
+import {ProfileEditorComponent} from "./components/profileEditor/profile-editor.component";
 
 const appRotes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const appRotes: Routes = [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileEditorComponent
   ],
   imports: [
     BrowserModule,

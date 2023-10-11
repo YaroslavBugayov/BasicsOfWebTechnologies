@@ -5,14 +5,15 @@ import {UserModel} from "../../models/user.model";
 import {HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {JwtService} from "../../services/jwt.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.component.html'
 })
 export class ProfileComponent implements OnInit {
-
   profile: UserModel | undefined
+  isEditing: boolean = false
 
   constructor(private profileService: ProfileService, private userService: UserService, private jwtService: JwtService, private router: Router) { }
 
@@ -54,6 +55,6 @@ export class ProfileComponent implements OnInit {
   }
 
   changeProfile() {
-
+    this.isEditing = !this.isEditing
   }
 }
