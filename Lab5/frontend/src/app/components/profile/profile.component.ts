@@ -52,4 +52,8 @@ export class ProfileComponent implements OnInit {
         }
       })
   }
+
+  changeProfile() {
+
+  }
 }

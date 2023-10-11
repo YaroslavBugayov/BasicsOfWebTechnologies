@@ -16,4 +16,6 @@ export class ProfileService {
      })
       return this.http.get<UserModel>(environment.origin + '/profile', { withCredentials: true, headers: headers } )
    }
+
+
 }
