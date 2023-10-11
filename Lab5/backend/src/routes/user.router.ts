@@ -2,6 +2,7 @@ import {userController} from "../controllers/user.controller";
 import express from "express";
 import {validate} from "express-validation";
 import {validations} from "../validations/validations";
+import adminRoleMiddleware from "../middlewares/admin-role.middleware";
 
 const router = express.Router();
 

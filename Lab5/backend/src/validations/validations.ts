@@ -38,17 +38,17 @@ export const validations = {
     profileChangeValidation: {
         body: Joi.object({
             name: Joi.string()
-                .regex(/^[A-Z][a-z]+\s[A-Z][a-z]+$/)
-                .required(),
+                .regex(/^[A-Z][a-z]+\s[A-Z][a-z]+$/),
             group: Joi.string()
-                .regex(/^[A-Z][A-Z]-[0-9][0-9]$/)
-                .required(),
+                .regex(/^[A-Z][A-Z]-[0-9][0-9]$/),
             idCard: Joi.string()
-                .regex(/^[A-Z][A-Z]\s№[0-9]{6}$/)
-                .required(),
+                .regex(/^[A-Z][A-Z]\s№[0-9]{6}$/),
             birthDate: Joi.string()
-                .regex(/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[1-2][0-9]{3}$/)
-                .required()
+                .regex(/^[1-2][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/),
+            email: Joi.string()
+                .email(),
+            password: Joi.string()
+                .regex(/^(?=\S{8,}$).*/)
         })
     }
 }

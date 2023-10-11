@@ -3,6 +3,7 @@ import {ApiError} from "../errors/api.error";
 import UserDto from "../dtos/user.dto";
 import {userService} from "./user.service";
 import {ProfileModel} from "../models/profile.model";
+import {ChangeProfileBody} from "../bodies/change-profile.body";
 
 const prisma = new PrismaClient();
 
@@ -13,20 +14,22 @@ export const profileService = {
         return new UserDto(user, profile);
     },
 
-    async change(newProfile: ProfileModel, userId: number): Promise<UserDto> {
-        const user: User = await userService.find(userId);
-        await profileService.find(userId);
+    async change(body: ChangeProfileBody, userId: number): Promise<UserDto> {
+        let user: User = await userService.find(userId);
+        if (body.email || body.password) {
+            user = await userService.change(body, userId);
+        }
         const profile: Profile = await prisma.profile.update({
             where: {
                 userId: userId
             },
             data: {
-                name: newProfile.name,
-                group: newProfile.group,
-                idCard: newProfile.idCard,
-                birthDate: newProfile.birthDate,
+                name: body.name,
+                group: body.group,
+                idCard: body.idCard,
+                birthDate: body.birthDate,
             }
-        })
+        });
         return new UserDto(user, profile);
     },
 

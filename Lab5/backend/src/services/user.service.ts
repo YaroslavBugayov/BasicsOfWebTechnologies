@@ -6,6 +6,7 @@ import {ApiError} from "../errors/api.error";
 import TokensDto from "../dtos/tokens.dto";
 import {tokenService} from "./token.service";
 import {LoginBody} from "../bodies/login.body";
+import {ChangeProfileBody} from "../bodies/change-profile.body";
 
 const prisma = new PrismaClient();
 
@@ -122,6 +123,23 @@ export const userService = {
     async hashPassword(password: string): Promise<string> {
         return hashSync(password, 10);
     },
+
+    async change(body: ChangeProfileBody, id: number): Promise<User> {
+        let password: string | undefined
+        if (body.password) {
+            password = await this.hashPassword(body.password)
+        }
+
+        return prisma.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                email: body.email,
+                password: password
+            }
+        });
+    }
 
 }
 
