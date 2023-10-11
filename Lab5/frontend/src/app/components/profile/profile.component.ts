@@ -3,7 +3,7 @@ import {UserService} from "../../services/user.service";
 import {ProfileService} from "../../services/profile.service";
 import {UserModel} from "../../models/user.model";
 import {HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {JwtService} from "../../services/jwt.service";
 import {FormGroup} from "@angular/forms";
 
@@ -14,13 +14,24 @@ import {FormGroup} from "@angular/forms";
 export class ProfileComponent implements OnInit {
   profile: UserModel | undefined
   isEditing: boolean = false
+  status: string | undefined
 
-  constructor(private profileService: ProfileService, private userService: UserService, private jwtService: JwtService, private router: Router) { }
+  id: string | null
+
+  constructor(
+    private profileService: ProfileService,
+    private userService: UserService,
+    private jwtService: JwtService,
+    private router: Router,
+    private route: ActivatedRoute)
+  {
+    this.id = this.route.snapshot.paramMap.get('id')
+  }
 
   ngOnInit() {
     this.jwtService.checkToken().subscribe({
       next: (data: any) => {
-        this.profileService.get()
+        this.profileService.get(this.id)
           .subscribe({
             next: (data: any) => {
               this.profile = {
@@ -32,7 +43,7 @@ export class ProfileComponent implements OnInit {
               }
             },
             error: (error: any) => {
-              this.router.navigate(['/login'])
+              this.status = error.error.message
             }
           })
       },

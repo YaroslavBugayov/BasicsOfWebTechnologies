@@ -32,19 +32,23 @@ export class ProfileEditorComponent {
 
   constructor(private profileService: ProfileService) {
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern('^[A-Z][a-z]+\\s[A-Z][a-z]+$')]),
-      group: new FormControl(null, [Validators.required, Validators.pattern('^[A-Z][A-Z]-[0-9][0-9]$')]),
-      idCard: new FormControl(null, [Validators.required, Validators.pattern('^[A-Z][A-Z]\\s№[0-9]{6}$')]),
-      birthDate: new FormControl(null, [Validators.required]),
+      name: new FormControl(null, [Validators.pattern('^[A-Z][a-z]+\\s[A-Z][a-z]+$')]),
+      group: new FormControl(null, [Validators.pattern('^[A-Z][A-Z]-[0-9][0-9]$')]),
+      idCard: new FormControl(null, [Validators.pattern('^[A-Z][A-Z]\\s№[0-9]{6}$')]),
+      birthDate: new FormControl(null),
+      email: new FormControl(null, [Validators.email]),
+      password: new FormControl(null, [Validators.pattern('^(?=\\S{8,}$).*')])
     })
   }
 
   submit() {
     const user: ChangeProfileModel = {
-      name: this.form.value.name,
-      group: this.form.value.group,
-      idCard: this.form.value.name,
-      birthDate: this.form.value.birthDate,
+      name: this.form.value.name ?? undefined,
+      group: this.form.value.group ?? undefined,
+      idCard: this.form.value.name ?? undefined,
+      birthDate: this.form.value.birthDate ?? undefined,
+      email: this.form.value.email ?? undefined,
+      password: this.form.value.password ?? undefined,
     }
     this.profileService.change(user)
       .subscribe({
