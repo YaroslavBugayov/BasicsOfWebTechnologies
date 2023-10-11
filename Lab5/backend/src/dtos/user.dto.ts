@@ -1,4 +1,4 @@
-import {Profile, User} from "@prisma/client";
+import {Profile, Role, User} from "@prisma/client";
 
 export default class UserDto {
     name: string;
@@ -6,6 +6,7 @@ export default class UserDto {
     idCard: string;
     birthDate: string;
     email: string;
+    role: Role
 
     constructor(user: User, profile: Profile) {
         this.name = profile.name;
@@ -13,6 +14,7 @@ export default class UserDto {
         this.idCard = profile.idCard;
         this.birthDate = profile.birthDate;
         this.email = user.email;
+        this.role = user.role
     }
 
 }

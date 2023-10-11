@@ -11,18 +11,18 @@ import {ChangeProfileModel} from "../models/change-profile.model";
 export class ProfileService {
   constructor(private http: HttpClient) { }
 
-   get(): Observable<UserModel> {
+   get(id: string | null): Observable<UserModel> {
      const headers = new HttpHeaders({
        'Authorization': `Bearer: ${localStorage.getItem('accessToken')}`
      })
-      return this.http.get<UserModel>(environment.origin + '/profile', { withCredentials: true, headers: headers } )
+      return this.http.get<UserModel>(environment.origin + `/profile/${id ?? ''}` , { withCredentials: true, headers: headers } )
    }
 
-   change(user: ChangeProfileModel): Observable<UserModel> {
+   change(user: ChangeProfileModel, id: string | null): Observable<UserModel> {
      const headers = new HttpHeaders({
        'Authorization': `Bearer: ${localStorage.getItem('accessToken')}`
      })
-     return this.http.put<UserModel>(environment.origin + '/profile/change', user, { withCredentials: true, observe: 'response', headers: headers })
+     return this.http.put<UserModel>(environment.origin + `/profile/change/${id ?? ''}`, user, { withCredentials: true, observe: 'response', headers: headers })
        .pipe(
          tap({
            next: (data: any) => {
